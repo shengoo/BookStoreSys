@@ -1,0 +1,17 @@
+测试环境：
+    1、Tomcat5.x
+    2、MyEclpse7.0
+    3、MySql5.0+NavCat
+    4、JDK1.6
+    5、IE8.0
+    6、WindowsXP
+安装说明：
+    1、数据库脚本导入MySql，或者根据脚本在不同类型的数据库管理系统中建立相应数据库，同时注意修改DBUtil类中的驱动连接，以及BookDAO中的分页操作，同时替换不同数据库的驱动程序。本例的驱动程序已经放置在WEB-INF\lib下。
+    2、通过MyEclipse发布到Tomcat5.x，启动Tomcat就可以访问系统。
+前台：
+     http://.../BookStoreSys
+后台：
+    http://.../BookStoreSys/admin
+    初始帐号：admin，密码：111111
+
+

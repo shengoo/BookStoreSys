@@ -1,0 +1,6 @@
+//数据源对象可以理解为连接池的管理者，通过他可以获取数据库的连接
+DataSource ds = null;
+//通过在WebRoot/META_INF目录下的context.xml文件，设定的数据源对象的名字，获取数据源对象。同时需要将数据库驱动程序放置在Tomcat 5.5\common\lib目录下
+Context context = new InitialContext();
+ds = (DataSource) context.lookup("java:/comp/env/jdbc/BookStoreSysDS");
+con=ds.getConnection();
