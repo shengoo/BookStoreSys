@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <filter>
+  <filter-name>EncodeFilter</filter-name>
+  <filter-class>com.cuc.filter.EncodeFilter</filter-class>
+ </filter>
+ <filter-mapping>
+  <filter-name>EncodeFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+ </filter-mapping>
+ <servlet>
+  <servlet-name>AdminServlet</servlet-name>
+  <servlet-class>com.cuc.admin.AdminServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>WebUserServlet</servlet-name>
+  <servlet-class>com.cuc.webuser.WebUserServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>SearchServlet</servlet-name>
+  <servlet-class>com.cuc.webuser.SearchServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>CartServlet</servlet-name>
+  <servlet-class>com.cuc.cart.CartServlet</servlet-class>
+ </servlet>
+  <servlet>
+    <servlet-name>UserOrderServlet</servlet-name>
+    <servlet-class>com.cuc.webuser.UserOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AdminOrderServlet</servlet-name>
+    <servlet-class>com.cuc.admin.AdminOrderServlet</servlet-class>
+  </servlet>
+
+
+ <servlet-mapping>
+  <servlet-name>AdminServlet</servlet-name>
+  <url-pattern>/servlet/AdminServlet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>WebUserServlet</servlet-name>
+  <url-pattern>/servlet/WebUserServlet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>SearchServlet</servlet-name>
+  <url-pattern>/servlet/SearchServlet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>CartServlet</servlet-name>
+  <url-pattern>/servlet/CartServlet</url-pattern>
+ </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserOrderServlet</servlet-name>
+    <url-pattern>/servlet/UserOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminOrderServlet</servlet-name>
+    <url-pattern>/servlet/AdminOrderServlet</url-pattern>
+  </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>index.jsp</welcome-file>
+ </welcome-file-list>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>
