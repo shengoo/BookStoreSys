@@ -27,10 +27,10 @@ public class CartServlet extends HttpServlet {
 			method = "";
 		}
 		HttpSession session = request.getSession();
-		WebUser webUser = (WebUser) session.getAttribute("webUser");
-		if (webUser == null) {
-			response.getWriter().println("<SCRIPT LANGUAGE='JavaScript'>alert('ÇëÏÈ×¢²á£¬²¢µÇÂ¼£¡');javascript:history.back(-1);</SCRIPT>");
-		}else{
+//		WebUser webUser = (WebUser) session.getAttribute("webUser");
+//		if (webUser == null) {
+//			response.getWriter().println("<SCRIPT LANGUAGE='JavaScript'>alert('ÇëÏÈ×¢²á£¬²¢µÇÂ¼£¡');javascript:history.back(-1);</SCRIPT>");
+//		}else{
 			Cart cart = (Cart) session.getAttribute("cart");
 			if (cart == null) {
 				cart = new Cart();
@@ -45,7 +45,7 @@ public class CartServlet extends HttpServlet {
 			}else if(method.equals("change")){
 				change(request, response);
 			}
-		}
+//		}
 	}
 	public void add(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {

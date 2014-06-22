@@ -5,6 +5,8 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+			
+	WebUser user = (WebUser)request.getSession().getAttribute("webUser");
 %>
 <html>
 	<head>
@@ -34,6 +36,9 @@
 			<table boder=0>
 				<tr>
 					<td>
+					<%if(user!=null) {%>
+					欢迎  <%= user.getWebuser() %> 光临!
+					<% }else{ %>
 						<div id="loginDiv">
 							<form name="loginForm">
 								帐号：
@@ -43,12 +48,13 @@
 								<input type="button" value="登录" onclick="login()">
 							</form>
 						</div>
+					<%} %>
 					</td>
 					<td>
 						&nbsp;&nbsp;&nbsp;
 						<a href="<%=basePath%>register.jsp" target="content">新用户注册</a>
 						&nbsp;&nbsp;&nbsp;
-						用户中心
+						<a href="<%=basePath%>servlet/UserOrderServlet?method=show" target="content">订单查询</a>
 						&nbsp;&nbsp;&nbsp;
 						<a href="<%=basePath%>servlet/CartServlet?method=show" target="content">查看我的购物车</a>
 						&nbsp;&nbsp;&nbsp;

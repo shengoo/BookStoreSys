@@ -17,6 +17,7 @@ import com.cuc.dao.IOrderDAO;
 import com.cuc.dao.imp.OrderDAO;
 import com.cuc.model.Order;
 import com.cuc.model.WebUser;
+import com.cuc.util.PageUtil;
 
 public class UserOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +37,8 @@ public class UserOrderServlet extends HttpServlet {
 			make(request, response);
 		}else if(method.equals("send")){
 			send(request, response);
+		}else if(method.equals("show")){
+			show(request, response);
 		}
 	}
 	public void make(HttpServletRequest request, HttpServletResponse response)
@@ -72,5 +75,36 @@ public class UserOrderServlet extends HttpServlet {
 		request.setAttribute("message", message);
 		request.getRequestDispatcher("/result.jsp").forward(request,
 				response);
+	}
+	
+	public void show(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		WebUser webUser=(WebUser)session.getAttribute("webUser");
+		
+		IOrderDAO orderDAO=new OrderDAO();
+
+		PageUtil pageUtil = new PageUtil(request);
+		pageUtil.setPageSize(3); // 设置分页大小
+		int pageSize = pageUtil.getPageSize();
+		int rsCount = orderDAO.getOrderCount(webUser.getWebuserid());// 获得记录总数
+
+		pageUtil.setRsCount(rsCount);
+		
+
+		int pageCount = pageUtil.getPageCount();// 计算页数
+		int currentPage = pageUtil.getCurrentPage();// 获得当前页
+		String pageTool = pageUtil.createPageTool(pageUtil.BbsText);// 创建分页工具条
+
+		
+		int skip = pageSize * (currentPage-1);
+		ArrayList<Order> orderList = orderDAO.GetUserOrders(webUser.getWebuserid(), skip, pageSize, new java.util.Date(), new java.util.Date());
+		request.setAttribute("orderList", orderList);
+		
+		request.setAttribute("pageTool", pageTool);
+		
+		RequestDispatcher rd = request
+				.getRequestDispatcher("/orders.jsp");
+		rd.forward(request, response);
 	}
 }

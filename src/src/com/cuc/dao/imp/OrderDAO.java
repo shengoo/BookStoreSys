@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.cuc.cart.CartItem;
 import com.cuc.dao.IOrderDAO;
 import com.cuc.model.Order;
 import com.cuc.util.DBUtil;
+import com.cuc.util.StringUtil;
 
 public class OrderDAO implements IOrderDAO {
 	
@@ -123,6 +125,110 @@ public class OrderDAO implements IOrderDAO {
 			list.add(totalPrice);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
+		}finally {
+			db.close(con);
+		}
+		return list;
+	}
+	
+	public int getOrderCount(int userid) {
+		DBUtil db=new DBUtil();
+		Connection con=new DBUtil().getConnection();
+		int rsCount=0;
+		try {
+			String sql = "select count(*) as rscount from orders WHERE webuserid =?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, userid);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				rsCount=rs.getInt("rscount");
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			return 0;
+		}finally {
+			db.close(con);
+		}
+		return rsCount;
+	}
+	
+	public int getOrderCount() {
+		DBUtil db=new DBUtil();
+		Connection con=new DBUtil().getConnection();
+		int rsCount=0;
+		try {
+			String sql = "select count(*) as rscount from orderinfo";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				rsCount=rs.getInt("rscount");
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			return 0;
+		}finally {
+			db.close(con);
+		}
+		return rsCount;
+	}
+	
+	public ArrayList<Order> GetUserOrders(int userid,int skip,int take,Date startDate,Date endDate) {
+		DBUtil db=new DBUtil();
+		Connection con=new DBUtil().getConnection();
+		ArrayList<Order> list = new ArrayList<Order>();
+		try {
+			String sql = "SELECT * FROM `orders` WHERE webuserid=? limit ?,?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, userid);
+			pstmt.setInt(2, skip);
+			pstmt.setInt(3, take);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Order order = new Order();
+				order.setOrderid(rs.getInt("orderid"));
+				order.setAddress(rs.getString("address"));
+				order.setEmail(rs.getString("email"));
+				order.setName(rs.getString("name"));
+				order.setPhone(rs.getString("phone"));
+				order.setSaletime(rs.getDate("saletime"));
+				order.setStatus(rs.getString("status"));
+				order.setWebuserid(rs.getInt("webuserid"));
+				list.add(order);
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			return null;
+		}finally {
+			db.close(con);
+		}
+		return list;
+	}
+	
+	public ArrayList<Order> GetAllOrders(int skip,int take,Date startDate,Date endDate){
+		DBUtil db=new DBUtil();
+		Connection con=new DBUtil().getConnection();
+		ArrayList<Order> list = new ArrayList<Order>();
+		try {
+			String sql = "SELECT * FROM `orders` limit ?,?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, skip);
+			pstmt.setInt(2, take);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Order order = new Order();
+				order.setOrderid(rs.getInt("orderid"));
+				order.setAddress(rs.getString("address"));
+				order.setEmail(rs.getString("email"));
+				order.setName(rs.getString("name"));
+				order.setPhone(rs.getString("phone"));
+				order.setSaletime(rs.getDate("saletime"));
+				order.setStatus(rs.getString("status"));
+				order.setWebuserid(rs.getInt("webuserid"));
+				list.add(order);
+			}
+			pstmt.close();
+		} catch (SQLException e) {
 			return null;
 		}finally {
 			db.close(con);

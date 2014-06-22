@@ -10,6 +10,10 @@
 		<title>网络书店</title>
 		<link href="<%=basePath%>admin/style.css" type="text/css"
 			rel="stylesheet">
+		<link href="<%=basePath%>css/jquery-ui-1.10.4.css" type="text/css"
+			rel="stylesheet">
+		<script src="<%=basePath%>scripts/jquery-2.1.1.js"></script>
+		<script src="<%=basePath%>scripts/jquery-ui-1.10.4.js"></script>
 	</head>
 	<body>
 		<div id="container">

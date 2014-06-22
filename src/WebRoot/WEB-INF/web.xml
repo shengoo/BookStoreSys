@@ -9,6 +9,16 @@
   <filter-name>EncodeFilter</filter-name>
   <url-pattern>/*</url-pattern>
  </filter-mapping>
+ <filter>
+ 	<filter-name>CostomerFilter</filter-name>
+ 	<filter-class>com.cuc.filter.CostomerFilter</filter-class>
+ </filter>
+ <filter-mapping>
+	<filter-name>CostomerFilter</filter-name>
+	<url-pattern>/servlet/SearchServlet</url-pattern>
+  	<url-pattern>/servlet/CartServlet</url-pattern>
+    <url-pattern>/servlet/UserOrderServlet</url-pattern>
+ </filter-mapping>
  <servlet>
   <servlet-name>AdminServlet</servlet-name>
   <servlet-class>com.cuc.admin.AdminServlet</servlet-class>
